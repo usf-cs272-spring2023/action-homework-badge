@@ -12,6 +12,7 @@ inputs:
 
   points:
     description: 'Points from the autograder'
+    required: true
 
 # make points badge for readme
 # https://github.com/markpatterson27/points-bar
