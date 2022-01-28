@@ -13,6 +13,11 @@ inputs:
   points:
     description: 'Points from the autograder'
 
+# make points badge for readme
+# https://github.com/markpatterson27/points-bar
+# https://education.github.community/t/autograder-score-on-readme/66289/2
+# https://github.com/emibcn/badge-action/tree/master#commit-the-changes-to-dedicated-branch
+
 runs:
   using: 'composite'
   steps:
