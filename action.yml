@@ -1,0 +1,66 @@
+name: 'Setup Homework'
+description: 'Setup homework for Github Classroom autograder'
+
+inputs:
+  homework:
+    description: 'Name of homework assignment'
+    required: true
+
+  outcome:
+    description: 'Outcome from the autograder'
+    required: true
+
+  points:
+    description: 'Points from the autograder'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Homework Repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup Badges Branch
+      id: results
+      shell: bash
+      run: |
+        outcome="${{ inputs.outcome }}"
+        color="f85149"
+
+        if [[ $outcome == "success" ]]; then
+          color="2ea043"
+        fi
+
+        echo "::set-output name=color::$color"
+
+        git checkout badges || git checkout -b badges
+        git rm --cached $(git ls-files)
+
+        echo "# Badges branch" > README.md
+        echo "![Points](points.svg)" >> README.md
+        echo "${{ inputs.homework }}: ${{ inputs.points }}" > points.txt
+
+    - name: Upload Points Text
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'points.txt'
+        path: 'points.txt'
+
+    - name: Generate Points Badge
+      uses: emibcn/badge-action@v1.2.1
+      with:
+        label: 'Points'
+        status: '${{ inputs.points }}'
+        color: '${{ steps.results.outputs.color }}'
+        path: 'points.svg'
+
+    - name: Push Points Badge
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add points.svg
+        git add points.txt
+        git add README.md
+        git commit --allow-empty -m "Updated points badge"
+        git push origin badges --force
