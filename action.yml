@@ -56,6 +56,7 @@ runs:
         path: 'points.svg'
 
     - name: Push Points Badge
+      shell: bash
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
