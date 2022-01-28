@@ -1,11 +1,7 @@
-name: 'Setup Homework'
-description: 'Setup homework for Github Classroom autograder'
+name: 'Create Homework Badge'
+description: 'Create homework badge for Github Classroom autograder'
 
 inputs:
-  homework:
-    description: 'Name of homework assignment'
-    required: true
-
   outcome:
     description: 'Outcome from the autograder'
     required: true
@@ -45,7 +41,7 @@ runs:
 
         echo "# Badges branch" > README.md
         echo "![Points](points.svg)" >> README.md
-        echo "${{ inputs.homework }}: ${{ inputs.points }}" > points.txt
+        echo "${{ inputs.points }}" > points.txt
 
     - name: Upload Points Text
       uses: actions/upload-artifact@v2
