@@ -46,7 +46,7 @@ runs:
     - name: Upload Points Text
       uses: actions/upload-artifact@v2
       with:
-        name: 'points.txt'
+        name: '${{ inputs.points }}'
         path: 'points.txt'
 
     - name: Generate Points Badge
