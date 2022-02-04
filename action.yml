@@ -36,6 +36,12 @@ runs:
 
         echo "::set-output name=color::$color"
 
+        if [[ "${{ inputs.points }}" =~ (\d+)/.+ ]]; then
+          echo "::set-output name=earned_points::${BASH_REMATCH[1]}"
+        else
+          echo "::set-output name=earned_points::0"
+        fi
+
         git checkout badges || git checkout -b badges
         git rm --cached $(git ls-files)
 
@@ -46,7 +52,7 @@ runs:
     - name: Upload Points Text
       uses: actions/upload-artifact@v2
       with:
-        name: '${{ inputs.points }}'
+        name: '${{ steps.results.outputs.earned_points }}'
         path: 'points.txt'
 
     - name: Generate Points Badge
