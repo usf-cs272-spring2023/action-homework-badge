@@ -47,13 +47,6 @@ runs:
 
         echo "# Badges branch" > README.md
         echo "![Points](points.svg)" >> README.md
-        echo "${{ inputs.points }}" > points.txt
-
-    - name: Upload Points Text
-      uses: actions/upload-artifact@v2
-      with:
-        name: '${{ steps.results.outputs.earned_points }}'
-        path: 'points.txt'
 
     - name: Generate Points Badge
       uses: emibcn/badge-action@v1.2.1
