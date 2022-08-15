@@ -62,7 +62,6 @@ runs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add points.svg
-        git add points.txt
         git add README.md
         git commit --allow-empty -m "Updated points badge"
         git push origin badges --force
