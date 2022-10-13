@@ -34,12 +34,15 @@ runs:
           color="2ea043"
         fi
 
-        echo "::set-output name=color::$color"
+        echo "color=$color" >> $GITHUB_OUTPUT
+        # echo "::set-output name=color::$color"
 
         if [[ "${{ inputs.points }}" =~ ([0-9]+)\/[0-9]+ ]]; then
-          echo "::set-output name=earned_points::${BASH_REMATCH[1]}"
+          echo "earned_points=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+          # echo "::set-output name=earned_points::${BASH_REMATCH[1]}"
         else
-          echo "::set-output name=earned_points::0"
+          echo "earned_points=0" >> $GITHUB_OUTPUT
+          # echo "::set-output name=earned_points::0"
         fi
 
         git checkout badges || git checkout -b badges
