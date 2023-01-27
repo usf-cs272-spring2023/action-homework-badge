@@ -49,7 +49,7 @@ runs:
         echo "![Points](points.svg)" >> README.md
 
     - name: Generate Points Badge
-      uses: emibcn/badge-action@v1.2.4
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Points'
         status: '${{ inputs.points }}'
